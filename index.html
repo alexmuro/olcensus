@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>Full Screen Example</title>        
+        <link rel="stylesheet" href="openlayers/theme/default/style.css" type="text/css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="style.css" type="text/css">
+        <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+        <script>
+        var sources = ['sf1','acs5'];
+        var sf1var = ['P0010001','P0030002','P0030003','P0030005','P0040001','P0120002','P0120026','P0180001']
+        var acsvar = ['B00001_001E','B00002_001E','B23001_001E','B25044_003E','B25044_004E','B25119_001E','B08006_008E','B08006_009E','B08006_011E'];
+
+        jQuery(document).ready(function(){
+        $("#acs").change(function() {
+                //console.log(); // the selected options’s value
+                var page = 'data/load/?s=1&v='+$(this).val();
+                map.removeLayer(counties);
+                selector.destroy();
+                counties.destroy();
+                countyDataLayer(acsvar[$(this).val()],page);
+                $("#sf1").css("border-color","black");
+                $("#acs").css("border-color","red");
+            });
+        
+        $("#sf1").change(function() {
+                //console.log(); // the selected options’s value
+                var page = 'data/load/?s=0&v='+$(this).val();
+                countyDataLayer(sf1var[$(this).val()],page);
+                $("#acs").css("border-color","black");
+                $("#sf1").css("border-color","red");
+            });
+        });
+        </script>
+        <style type="text/css">
+            html, body, #map {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            #text {
+                position: absolute;
+                bottom: 1em;
+                left: 1em;
+                width: 200px;
+                height:400px;
+                z-index: 20000;
+                background-color: white;
+                padding: 0 0.5em 0.5em 0.5em;
+
+            }
+            .display{
+                font-size:.8em;
+            }
+
+        </style>
+        <script src="openlayers/lib/OpenLayers.js"></script>
+    </head>
+    <body>
+        <div id="map"></div>
+
+          <div id="text">
+            <h1 id="title">Info Tab</h1>
+            <div id="infopane">
+            zoom: <span id="zoom" class='display'></span><br>
+            center: <span id="center" class='display'></span>
+            data:  <span id="data" class='display'></span>
+            <span id="countydata" class='display'></span>
+            </div>
+            <h1 id="title">Census</h1>
+            <div id="censusControl">
+            <div style='padding:10px;'>
+            <b>Select a variable to display</b><br>
+            Summary File 1 Variables:<br>
+            <select id="sf1" style='border-color:red;'>
+             <option value="0" selected>Total Population</option>
+             <option value="1">White Population</option>
+             <option value="2">Black Population</option>
+             <option value="3">Asian Population</option>
+             <option value="4">Hispanic Population</option>
+             <option value="5">Male Population</option>
+             <option value="6">Female Population</option>
+             <option value="7">Total Households</option>
+             
+            </select>
+            American Community Survey Variables:<br>
+            <select id="acs">
+            <option value="0"></option>
+             <option value="0"> Population Sample </option>
+             <option value="1"> Housing Units Sample</option>
+             <option value="2">Population in Poverty</option>
+             <option value="3">HH with 0 Vehicles</option>
+             <option value="4">HH with 1 Vehicles</option>
+             <option value="5">Median Household Income</option>
+             <option value="6">Transportation: Public Transit</option>
+             <option value="7">Transportation: Bus or Trolley</option>
+             <option value="8">Transportation: Subway</option>
+            </select>
+            </div>
+          </div>
+            <script src="fullScreen.js"></script>
+            <script src="js/countyDataLayer.js"></script>
+        </div>
+    </body>
+</html>

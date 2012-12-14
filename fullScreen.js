@@ -27,12 +27,13 @@ var map = new OpenLayers.Map({
     div: "map",
 
     layers: [
-        new OpenLayers.Layer.XYZ("OSM (with buffer)", urls, {
+       new OpenLayers.Layer.XYZ("OSM (with buffer)", urls, {
             transitionEffect: "resize", buffer: 2, sphericalMercator: true
         }),
         new OpenLayers.Layer.XYZ("OSM (without buffer)", urls, {
             transitionEffect: "resize", buffer: 0, sphericalMercator: true
         })
+
     ],
     controls: [
         new OpenLayers.Control.Navigation({

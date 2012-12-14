@@ -6,10 +6,11 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <title>Full Screen Example</title>        
         <link rel="stylesheet" href="openlayers/theme/default/style.css" type="text/css">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
         <link rel="stylesheet" href="style.css" type="text/css">
-        <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
-        <script src="js/protodata32.min.js  "></script>
+        <!--<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>-->
+        <script src="js/protodata32.min.js"></script>
+        <script src="js/getLayerAttribute.js"></script>
         <script>
         var quant = {};
         var sources = ['sf1','acs5'];
@@ -33,10 +34,12 @@
             });
         
         $("#sf1").change(function() {
+                /*
                 for (var i = 0; i < counties.features.length; i++)
                 {
-                  quant[counties.features[i]['data']['GEO_ID']] = parseInt(counties.features[i]['data'][sf1var[$(this).val()]]);
-                }
+                  quant[counties.features[i]['data']['GEO_ID']] = parseInt(counties.features[i]['data'][]);
+                }*/
+                quant = getLayerAttribute(counties,sf1var[$(this).val()]);
 
                 counties.styleMap = getStyle(sf1var[$(this).val()],$("#color").val(),quant);
                 counties.redraw();
@@ -96,8 +99,9 @@
             <h1 id="title">Info Tab</h1>
             <div id="infopane">
             zoom: <span id="zoom" class='display'></span><br>
-            center: <span id="center" class='display'></span>
-            data:  <span id="data" class='display'></span>
+            center: <span id="center" class='display'></span><br>
+            data:  <span id="data" class='display'></span><br>
+            dbl: <span ="dbl" class='display'></span>
             <span id="countydata" class='display'></span>
             </div>
             <h1 id="title">Census</h1>
@@ -133,6 +137,7 @@
             
           </div>
 
+            <script src="js/getLegend.js"></script>
             <script src="js/getStyle.js"></script>
             <script src="fullScreen.js"></script>
             <script src="js/countyDataLayer.js"></script>
@@ -146,9 +151,11 @@
              <option value="3"></option>
              <option value="4"></option>
              <option value="5"></option>
-   
+              <option value="6"></option>
             </select>
+             <div id="l"></div>
             </div>
+
 
     </body>
 </html>

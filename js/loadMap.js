@@ -19,7 +19,7 @@ var rule = new OpenLayers.Rule({
 
 var styles = new OpenLayers.StyleMap({
     "default": {
-        strokeWidth: 2,
+        strokeWidth: 1,
         strokeColor:'#fff',
         fillColor: "#fff",
         fillOpacity: ".1" 
@@ -31,6 +31,7 @@ var styles = new OpenLayers.StyleMap({
         fillOpacity: ".37" 
     }
 });
+
 
 var blankstyle = new OpenLayers.StyleMap({
     "default": {
@@ -113,33 +114,36 @@ var DblclickFeature = OpenLayers.Class(OpenLayers.Control, {
 });
 
 var dblclick = new DblclickFeature(states, {
-  dblclick: function (event) {
-    
+  dblclick: function (event) { 
+
     map.zoomToExtent(event.geometry.bounds);
-    event.attributes.GEO_ID[1]=4; //Convert State Geo_ID to County Geo_ID
-    console.log(event.attributes.GEO_ID);
+    event.attributes.GEO_ID[1]=4; //Convert State Geo_ID to County Geo_ID)
     activelayer.styleMap = blankstyle;
     activelayer.redraw();
-    console.log('activelayer redraw');
 
     var fip = event.attributes.GEO_ID[9]+event.attributes.GEO_ID[10];
-    console.log(fip);
+    console.log("You double clicked on"+fip)
     
-    var stateCounties = getStateCounties(fip)
+    var stateCounties = getStateCounties(fip);
     map.addLayer(stateCounties);
     activelayer = stateCounties;
 
     quant = getLayerAttribute(activelayer,sf1var[$('#sf1').val()]);
     activelayer.styleMap = getStyle(sf1var[$('#sf1').val()],$("#color").val(),quant);
     activelayer.redraw();
-    /*
-    rule = getFilter('GEO_ID', event.attributes.GEO_ID, 'like');
-    filterMap = new OpenLayers.StyleMap({
-        "default": new OpenLayers.Style(null, {rules: [rule]})
+    
+    var countiesSelect = getStateCounties(fip,true);
+    map.addLayer(countiesSelect);
+    countiesSelect.styleMap = styles;
+
+    var selectlayerer = new OpenLayers.Control.SelectFeature([countiesSelect,states],{
+        hover:true,
+        tiple: true,
+        autoActivate:true
     });
-    counties.styleMap = filterMap;
-    counties.refresh();
-    */
+   map.addControl(selectlayerer);
+   dblclick.activate();
+    
   }
 });
 
@@ -154,10 +158,6 @@ var selector = new OpenLayers.Control.SelectFeature([counties,states],{
         autoActivate:true
 });
 
-var stateselect = new OpenLayers.Control.SelectFeature(states,{
-        click:true,
-        autoActivate:true
-});
 
 map.addLayers([counties,states]);
 map.addControl(selector);

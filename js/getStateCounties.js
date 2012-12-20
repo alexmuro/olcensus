@@ -1,7 +1,17 @@
-function getStateCounties(fip)
+function getStateCounties(fip,select)
 {
-
-	var stateCounties = new OpenLayers.Layer.Vector("State "+fip+"Counties", {
+    var url = "data/load/getStateCounties.php?fip="+fip;
+    var name = "State "+fip+" Counties"
+    if(select){
+    url = "data/load/getStateCounties.php?fip="+fip+"&nodata=1";
+    name = 'Select'
+    }
+    if(fip == 36)
+    {
+    url = "data/states/"+fip+"/county-sf1.json";
+    }
+    
+    var stateCounties = new OpenLayers.Layer.Vector(name, {
     eventListeners:{
         'featureselected':function(evt){
             var feature = evt.feature;
@@ -13,9 +23,10 @@ function getStateCounties(fip)
         }, 
     strategies: [new OpenLayers.Strategy.Fixed()],                
     protocol: new OpenLayers.Protocol.HTTP({
-    url: "data/load/getStateCounties.php?fip="+fip,
+    url: url,
     format: new OpenLayers.Format.GeoJSON()
     })
 	});
-	return stateCounties;
+	
+    return stateCounties;
 }

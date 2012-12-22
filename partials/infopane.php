@@ -14,7 +14,8 @@
             <b>Select a variable to display</b><br>
             Summary File 1 Variables:<br>
             <select id="sf1" style='border-color:red;'>
-             <option value="0" selected>Total Population</option>
+             <option selected></option>
+             <option value="0" >Total Population</option>
              <option value="1">White Population</option>
              <option value="2">Black Population</option>
              <option value="3">Asian Population</option>

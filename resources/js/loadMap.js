@@ -21,6 +21,8 @@ counties= new OpenLayers.Layer.Vector("US Counties", {
         }),
         styleMap: getStyle(cdata,0)
 });
+    
+
 
 states = new OpenLayers.Layer.Vector("States", {
     eventListeners:{
@@ -52,15 +54,17 @@ var statedblclick = new DblclickFeature(states, {
 
     var fip = event.attributes.GEO_ID[9]+event.attributes.GEO_ID[10];
     console.log("You double clicked on"+fip)
-    
-    var stateCounties = getStateCounties(fip);
+
+    stateCounties = getStateCounties(fip);
     map.addLayer(stateCounties);
     activelayer = stateCounties;
 
-    quant = getLayerAttribute(activelayer,sf1var[$('#sf1').val()]);
+    console.log(activelayer.features);
+    //quant = getLayerAttribute(stateCounties,sf1var[$('#sf1').val()]);
     activelayer.styleMap = getStyle(sf1var[$('#sf1').val()],$("#color").val(),quant);
     activelayer.redraw();
-    
+    console.log('after');
+
     var countiesSelect = getStateCounties(fip,true);
     selectlayer = countiesSelect;
     map.addLayer(selectlayer);
@@ -96,9 +100,7 @@ statedblclick.activate();
 
 
 activelayer = counties;
-
-
-
+console.log(activelayer.features)
 
 $("zoom").innerHTML = map.zoom.toFixed(4);
 $("center").innerHTML = map.getCenter().toShortString();

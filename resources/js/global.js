@@ -5,7 +5,7 @@ var quant = {};
 var activelayer,selectlayer;
 var usBounds;
 var selectlayerer;
-var counties, states,styles;
+var counties, states,stateCounties;
 var level = 0;
 var sources = ['sf1','acs5'];
 var sf1var = ['P0010001','P0030002','P0030003','P0030005','P0040001','P0120002','P0120026','P0180001']
@@ -15,6 +15,10 @@ var acsvar = ['B00001_001E','B00002_001E','B23001_001E','B25044_003E','B25044_00
 // Screen Behavior Jquery - to be Refactored
 //---------------------------------------------------
 jQuery(document).ready(function(){
+
+ quant = getLayerAttribute(counties,sf1var[$('#sf1').val()]);
+ counties.styleMap = getStyle(sf1var[$('#sf1').val()],$("#color").val(),quant);
+ counties.redraw();
 $("#acs").change(function() {
         //console.log(); // the selected options’s value
         var page = 'data/load/?s=1&v='+$(this).val();

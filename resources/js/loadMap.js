@@ -94,7 +94,6 @@ var selector = new OpenLayers.Control.SelectFeature([counties,states],{
 usBounds = map.getExtent;
 map.addLayers([counties,states]);
 map.addControl(selector);
-map.addControl(new OpenLayers.Control.LayerSwitcher());
 map.addControl(statedblclick);
 statedblclick.activate();
 

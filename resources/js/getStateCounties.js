@@ -15,7 +15,7 @@ function getStateCounties(fip,select)
     eventListeners:{
         'featureselected':function(evt){
             var feature = evt.feature;
-            document.getElementById("data").innerHTML = "<div >County: " + feature.attributes.NAME+" "+feature.attributes.LSAD +" <br>Geo ID: " + feature.attributes.GEO_ID+" <br>Pop: " + addCommas(feature.attributes.CDATA)+"</div>";
+            document.getElementById("data").innerHTML = "<div >County: " + feature.attributes.NAME+" "+feature.attributes.LSAD +" <br>Geo ID: " + feature.attributes.GEO_ID+" <br>Pop: " + addCommas(feature.attributes.P0010001)+"</div>";
         },
         'featureunselected':function(evt){
             var feature = evt.feature;

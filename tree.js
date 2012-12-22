@@ -43,36 +43,13 @@ map = new OpenLayers.Map({
 Ext.onReady(function() {
     // create a map panel with some layers that we will show in our layer tree
     // below.
-   
     mapPanel = new GeoExt.MapPanel({
         border: true,
         region: "center",
         // we do not want all overlays, to try the OverlayLayerContainer
         map: map,
         center: [-10165141.079578,4625473.078965],
-    zoom: 4.5
-       /*,
-            // create a group layer (with several layers in the "layers" param)
-            // to show how the LayerParamLoader works
-            new OpenLayers.Layer.WMS("Tasmania (Group Layer)",
-                "http://demo.opengeo.org/geoserver/wms", {
-                    layers: [
-                        "topp:tasmania_state_boundaries",
-                        "topp:tasmania_water_bodies",
-                        "topp:tasmania_cities",
-                        "topp:tasmania_roads"
-                  ],
-                    transparent: true,
-                    format: "image/gif"
-                }, {
-                    isBaseLayer: false,
-                    buffer: 0,
-                    // exclude this layer from layer container nodes
-                    displayInLayerSwitcher: false,
-                    visibility: false
-                }
-            )*/
-        
+    zoom: 4.5    
     });
 
     // create our own layer node UI class, using the TreeNodeUIEventMixin
@@ -93,17 +70,7 @@ Ext.onReady(function() {
                 uiProvider: "layernodeui"
             }
         }
-    }/*, {
-        nodeType: "gx_layer",
-        layer: "Tasmania (Group Layer)",
-        isLeaf: false,
-        // create subnodes for the layers in the LAYERS param. If we assign
-        // a loader to a LayerNode and do not provide a loader class, a
-        // LayerParamLoader will be assumed.
-        loader: {
-            param: "LAYERS"
-        }
-    }*/
+    }
     ];
     // The line below is only needed for this example, because we want to allow
     // interactive modifications of the tree configuration using the

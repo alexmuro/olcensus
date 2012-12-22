@@ -14,7 +14,8 @@
         
         <script src="resources/js/countyDataLayer.js"></script>
         <script src="resources/js/getFilter.js"></script> 
-        <script src="resources/js/getStateCounties.js"></script> 
+        <script src="resources/js/getStateCounties.js"></script>
+        <script src="resources/js/getCountyTracts.js"></script>  
         <script src="resources/js/helper_functions.js"></script>
         <script src="resources/js/protodata32.min.js"></script>
         <script src="resources/js/getLayerAttribute.js"></script>

@@ -59,13 +59,11 @@ var statedblclick = new DblclickFeature(states, {
     map.addLayer(stateCounties);
     activelayer = stateCounties;
 
-    console.log(activelayer.features);
     //quant = getLayerAttribute(stateCounties,sf1var[$('#sf1').val()]);
     activelayer.styleMap = getStyle(sf1var[$('#sf1').val()],$("#color").val(),quant);
     activelayer.redraw();
-    console.log('after');
 
-    var countiesSelect = getStateCounties(fip,true);
+    countiesSelect = getStateCounties(fip);
     selectlayer = countiesSelect;
     map.addLayer(selectlayer);
     countiesSelect.styleMap = getDefaultStyle();
@@ -75,9 +73,43 @@ var statedblclick = new DblclickFeature(states, {
         tiple: true,
         autoActivate:true
     });
-
    map.addControl(selectlayerer);
-   level++;    
+   level++;
+
+   var countydblclick = new DblclickFeature(countiesSelect, {
+    dblclick: function (event) { 
+
+            event.attributes.GEO_ID[1]=4;
+            var name = event.attributes.NAME+" "+event.attributes.LSAD+" tracts";
+            var statefip=event.attributes.GEO_ID[9]+event.attributes.GEO_ID[10];
+            var countyfip=event.attributes.GEO_ID[11]+event.attributes.GEO_ID[12]+event.attributes.GEO_ID[13];
+            console.log(name+' '+statefip+' '+countyfip);
+            map.zoomToExtent(event.geometry.bounds);
+            
+            var countyTracts = getCountyTracts(statefip,countyfip,name);
+            map.addLayer(countyTracts);
+            activelayer = countyTracts;
+
+            activelayer.styleMap = getStyle(sf1var[$('#sf1').val()],$("#color").val(),quant);
+            activelayer.redraw();
+
+            var tractSelect =getCountyTracts(statefip,countyfip,name);
+            selectlayer = tractSelect;
+            map.addLayer(selectlayer);
+            selectlayer.styleMap = getDefaultStyle();
+            
+            tractselectlayerer = new OpenLayers.Control.SelectFeature([selectlayer],{
+                hover:true,
+                tiple: true,
+                autoActivate:true
+            });
+            map.addControl(tractselectlayerer);
+            level++;
+        }
+    });
+    map.addControl(countydblclick);
+    countydblclick.activate();
+
   }
 });
             

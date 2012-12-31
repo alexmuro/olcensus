@@ -114,8 +114,6 @@ var statedblclick = new DblclickFeature(states, {
 });
             
 
-map.events.register("zoomend", null, displayZoom);
-map.events.register("moveend", null, displayCenter);
 var selector = new OpenLayers.Control.SelectFeature([counties,states],{
         hover:true,
         multiple: true,
@@ -131,15 +129,5 @@ statedblclick.activate();
 
 
 activelayer = counties;
-console.log(activelayer.features)
 
-$("zoom").innerHTML = map.zoom.toFixed(4);
-$("center").innerHTML = map.getCenter().toShortString();
-
- function displayZoom() {
-            $("zoom").innerHTML = map.zoom.toFixed(4);
-        }
- function displayCenter() {
-            $("center").innerHTML = map.getCenter().toShortString();
-        }
 }

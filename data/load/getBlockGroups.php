@@ -1,8 +1,6 @@
 <?php
-ini_set("memory_limit","256M");
+ini_set("memory_limit","135M");
 ini_set('max_execution_time', 300);
-//error_reporting(E_ALL);
-//ini_set('display_errors', '1');
 
 $source = $_GET['s'];
 $var = $_GET['v'];
@@ -12,7 +10,7 @@ $county = $_GET['county'];
 $noapi = $_GET['nodata'];
 
 
-$dataurl = "http://localhost/olcensus/data/states/".$fips."/census_tracts.json";
+$dataurl = "http://localhost/olcensus/data/states/".$fips."/block_groups.json";
 //echo $dataurl;
 $geo = curl_download($dataurl);
 $foo =  utf8_encode($geo);
@@ -45,7 +43,7 @@ if(!$nodata)
         //echo "FipsCode: $fipscode <br>";
         $vars = 'P0010001,P0030002,P0030003,P0030005,P0040001,P0120002,P0120026,P0180001';
         $var = $handles[$sources[$source]][$var];
-        $jURL = 'http://api.census.gov/data/2010/'.$sources[$source].'?key=564db01afc848ec153fa77408ed72cad68191211&get='.$vars.'&for=tract:*&in=county:'.$county.'+state:'.$fipscode;
+        $jURL = 'http://api.census.gov/data/2010/'.$sources[$source].'?key=564db01afc848ec153fa77408ed72cad68191211&get='.$vars.'&for=block+group:*&in=state:'.$fipscode.'+county:'.$county.'+tract:'.$tract;
 
         //echo $jURL."<br>";
         $cdata = curl_download($jURL);

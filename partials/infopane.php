@@ -2,10 +2,7 @@
     <button id="uplevel" onclick='upOneLevel()' class='x-btn'>Go Up One Level</button>
     <h1 id="title">Info Tab</h1>
     <div id="infopane">
-        zoom: <span id="zoom" class='display'></span><br>
-        center: <span id="center" class='display'></span><br>
         data:  <span id="data" class='display'></span><br>
-        dbl: <span ="dbl" class='display'></span>
         <span id="countydata" class='display'></span>
     </div>
     <h1 id="title">Census</h1>

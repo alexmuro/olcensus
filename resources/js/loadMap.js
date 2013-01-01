@@ -53,13 +53,11 @@ var statedblclick = new DblclickFeature(states, {
     activelayer.redraw();
 
     var fip = event.attributes.GEO_ID[9]+event.attributes.GEO_ID[10];
-    console.log("You double clicked on"+fip)
-
+    
     stateCounties = getStateCounties(fip);
     map.addLayer(stateCounties);
     activelayer = stateCounties;
 
-    //quant = getLayerAttribute(stateCounties,sf1var[$('#sf1').val()]);
     activelayer.styleMap = getStyle(sf1var[$('#sf1').val()],$("#color").val(),quant);
     activelayer.redraw();
 
@@ -86,6 +84,9 @@ var statedblclick = new DblclickFeature(states, {
             console.log(name+' '+statefip+' '+countyfip);
             map.zoomToExtent(event.geometry.bounds);
             
+            activelayer.styleMap = getDefaultStyle('blank');
+            activelayer.redraw();
+
             countyTracts = getCountyTracts(statefip,countyfip,name);
             map.addLayer(countyTracts);
             activelayer = countyTracts;
@@ -116,8 +117,9 @@ var statedblclick = new DblclickFeature(states, {
                         var tractfip = event.attributes.GEO_ID[14]+event.attributes.GEO_ID[15]+event.attributes.GEO_ID[16]+event.attributes.GEO_ID[17]+event.attributes.GEO_ID[18]+event.attributes.GEO_ID[19];
                         console.log(name+' '+statefip+' '+countyfip+' '+tractfip);
                         map.zoomToExtent(event.geometry.bounds);
-                       
-                        
+                    
+                        activelayer.styleMap = getDefaultStyle('blank');
+                        activelayer.redraw();
 
                         var TractBlockGroups = getTractBlockGroups(statefip,countyfip,tractfip,name);
                         map.addLayer(TractBlockGroups);

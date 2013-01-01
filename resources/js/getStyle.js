@@ -16,9 +16,6 @@ var quantile = pv.Scale.quantile()
 
 getLegend(colors[color],quantile.quantiles());
 
-
-    console.log(quantile.quantiles());
-    console.log(colors[cchoice]);
 var style = new OpenLayers.Style(
     // the first argument is a base symbolizer
     // all other symbolizers in rules will extend this one

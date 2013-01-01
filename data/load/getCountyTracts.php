@@ -30,6 +30,7 @@ $cursor = 1;
 $geoSort=Array();
 foreach($geo['features'] as $feature){
     $countyfip = $feature['properties']['GEO_ID'][11].$feature['properties']['GEO_ID'][12].$feature['properties']['GEO_ID'][13];
+                    
     //echo $countyfip.' '.$county.'<br>'; 
     if($countyfip == $county){
         $geoSort[$feature['properties']['GEO_ID']] = $feature;

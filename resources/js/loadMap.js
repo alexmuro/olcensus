@@ -86,14 +86,14 @@ var statedblclick = new DblclickFeature(states, {
             console.log(name+' '+statefip+' '+countyfip);
             map.zoomToExtent(event.geometry.bounds);
             
-            var countyTracts = getCountyTracts(statefip,countyfip,name);
+            countyTracts = getCountyTracts(statefip,countyfip,name);
             map.addLayer(countyTracts);
             activelayer = countyTracts;
 
             activelayer.styleMap = getStyle(sf1var[$('#sf1').val()],$("#color").val(),quant);
             activelayer.redraw();
 
-            var tractSelect =getCountyTracts(statefip,countyfip,name);
+            tractSelect =getCountyTracts(statefip,countyfip,name);
             selectlayer = tractSelect;
             map.addLayer(selectlayer);
             selectlayer.styleMap = getDefaultStyle();
@@ -105,6 +105,46 @@ var statedblclick = new DblclickFeature(states, {
             });
             map.addControl(tractselectlayerer);
             level++;
+
+            var tractdblclick = new DblclickFeature(tractSelect, {
+            dblclick: function (event) { 
+
+                        event.attributes.GEO_ID[1]=4;
+                        var name = event.attributes.NAME+"block groups";
+                        var statefip=event.attributes.GEO_ID[9]+event.attributes.GEO_ID[10];
+                        var countyfip=event.attributes.GEO_ID[11]+event.attributes.GEO_ID[12]+event.attributes.GEO_ID[13];
+                        var tractfip = event.attributes.GEO_ID[14]+event.attributes.GEO_ID[15]+event.attributes.GEO_ID[16]+event.attributes.GEO_ID[17]+event.attributes.GEO_ID[18]+event.attributes.GEO_ID[19];
+                        console.log(name+' '+statefip+' '+countyfip+' '+tractfip);
+                        map.zoomToExtent(event.geometry.bounds);
+                       
+                        
+
+                        var TractBlockGroups = getTractBlockGroups(statefip,countyfip,tractfip,name);
+                        map.addLayer(TractBlockGroups);
+                        activelayer = TractBlockGroups;
+
+                        activelayer.styleMap = getStyle(sf1var[$('#sf1').val()],$("#color").val(),quant);
+                        activelayer.redraw();
+
+                        var BGSelect = getTractBlockGroups(statefip,countyfip,tractfip,name); 
+                        selectlayer = BGSelect;
+                        map.addLayer(selectlayer);
+                        selectlayer.styleMap = getDefaultStyle();
+                        
+                        bgselectlayerer = new OpenLayers.Control.SelectFeature([selectlayer],{
+                            hover:true,
+                            tiple: true,
+                            autoActivate:true
+                        });
+                        map.addControl(bgselectlayerer);
+                        level++;
+                    } 
+                });
+            
+            map.addControl(tractdblclick);
+            tractdblclick.activate();
+
+
         }
     });
     map.addControl(countydblclick);

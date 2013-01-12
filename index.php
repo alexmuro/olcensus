@@ -26,18 +26,22 @@
         <script src="resources/js/global.js"></script>
         <script src="resources/js/doubleclickControl.js"></script>
         <script src="resources/js/loadMap.js"></script>
-        
+        <script src="resources/js/getJson.js"></script>
 
 
-        <script type="text/javascript" src="tree.js"></script>
+        <script type="text/javascript" src="app.js"></script>
 
     </head>
     <body>
         <div id="desc">
+            <div style="height:100%;overflow:auto;">
             <?php
+                include "config/db.php"; 
                 include "partials/infopane.php";
+                include "gtfs/gtfs_listing.php";
                 include "partials/legend.php";
             ?>
+            </div>
         </div>
     </body>
 </html>
